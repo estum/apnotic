@@ -27,12 +27,12 @@ module Apnotic
       @client = NetHttp2::Client.new(@url, ssl_context: ssl_context, connect_timeout: @connect_timeout)
     end
 
-    def push(notification, options={})
-      request  = Apnotic::Request.new(notification)
+    def push(notification, timeout: nil, token: nil)
+      request  = Apnotic::Request.new(notification, token)
       response = @client.call(:post, request.path,
         body:    request.body,
         headers: request.headers,
-        timeout: options[:timeout]
+        timeout: timeout
       )
       Apnotic::Response.new(headers: response.headers, body: response.body) if response
     end
@@ -41,8 +41,8 @@ module Apnotic
       @client.call_async(push.http2_request)
     end
 
-    def prepare_push(notification)
-      request       = Apnotic::Request.new(notification)
+    def prepare_push(notification, token: nil)
+      request       = Apnotic::Request.new(notification, token)
       http2_request = @client.prepare_request(:post, request.path,
         body:    request.body,
         headers: request.headers
