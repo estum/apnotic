@@ -36,14 +36,14 @@ describe Apnotic::Notification do
         notification.expiration         = 1461491082
         notification.priority           = 10
         notification.topic              = "com.example.myapp"
-        notification.apns_collapse_id   = "collpase-id"
+        notification.apns_collapse_id   = "collapase-id"
       end
 
       it { is_expected.to have_attributes(apns_id: "apns-id") }
       it { is_expected.to have_attributes(expiration: 1461491082) }
       it { is_expected.to have_attributes(priority: 10) }
       it { is_expected.to have_attributes(topic: "com.example.myapp") }
-      it { is_expected.to have_attributes(apns_collapse_id: "collpase-id") }
+      it { is_expected.to have_attributes(apns_collapse_id: "collapase-id") }
     end
   end
 
@@ -90,10 +90,10 @@ describe Apnotic::Notification do
         notification.alert             = "Something for you!"
         notification.badge             = 22
         notification.sound             = "sound.wav"
-        notification.content_available = 1
         notification.category          = "action_one"
-        notification.custom_payload    = { acme1: "bar" }
+        notification.content_available = 1
         notification.mutable_content   = 1
+        notification.custom_payload    = { acme1: "bar" }
       end
 
       it { is_expected.to eq (

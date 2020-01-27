@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'apnotic/connection'
 require 'apnotic/connection_pool'
 require 'apnotic/notification'

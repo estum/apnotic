@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
 require 'connection_pool'
 
 module Apnotic
-
   class ConnectionPool
-
     class << self
       def new(options={}, pool_options={})
         ::ConnectionPool.new(pool_options) do

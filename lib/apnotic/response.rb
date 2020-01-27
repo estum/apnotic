@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module Apnotic
-
   class Response
     attr_reader :headers
 

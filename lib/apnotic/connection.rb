@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'net-http2'
 require 'openssl'
 
 module Apnotic
-
   APPLE_DEVELOPMENT_SERVER_URL = "https://api.development.push.apple.com:443"
   APPLE_PRODUCTION_SERVER_URL  = "https://api.push.apple.com:443"
 
@@ -30,7 +31,7 @@ module Apnotic
     def push(notification, timeout: nil, token: nil)
       request  = Apnotic::Request.new(notification, token)
       response = @client.call(:post, request.path,
-        body:    request.body,
+        body:    request.encoded_body,
         headers: request.headers,
         timeout: timeout
       )
@@ -44,7 +45,7 @@ module Apnotic
     def prepare_push(notification, token: nil)
       request       = Apnotic::Request.new(notification, token)
       http2_request = @client.prepare_request(:post, request.path,
-        body:    request.body,
+        body:    request.encoded_body,
         headers: request.headers
       )
       Apnotic::Push.new(http2_request)
